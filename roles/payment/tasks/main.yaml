@@ -1,0 +1,37 @@
+- name: installing python
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: install_python
+
+
+- name: creating user and directory
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: creating_user_and_directory
+
+
+- name: Unarchive a file that needs to be downloaded 
+  ansible.builtin.unarchive:
+    src: https://roboshop-builds.s3.amazonaws.com/payment.zip
+    dest: /app 
+    remote_src: yes
+
+- name: Installing the dependencies
+  ansible.builtin.command: pip3.6 install -r requirements.txt
+  args:
+    chdir: /app
+
+- name: copying the service file
+  ansible.builtin.copy:
+    src: payment.service
+    dest: /etc/systemd/system/payment.service
+
+- name: daemon reload payment
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: payment
+
+- name: "enabling the {{component}}"
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: enabling_starting_service

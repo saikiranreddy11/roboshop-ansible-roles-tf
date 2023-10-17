@@ -1,0 +1,24 @@
+- name: checking the user
+  ansible.builtin.command: id roboshop
+  register: output
+  ignore_errors: true
+
+
+- name: Creating the user
+  ansible.builtin.user:
+    name: roboshop
+    state: present    
+  when: output.rc != 0
+
+- name: Check if the directory exists
+  ansible.builtin.stat:
+    path: /app
+  register: dir_check
+  ignore_errors: true
+
+
+- name: Create the directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+  when: dir_check.stat.exists == False

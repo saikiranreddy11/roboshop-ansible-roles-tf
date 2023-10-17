@@ -1,0 +1,35 @@
+- name: installing nodejs
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: installing_nodejs
+
+- name: creating user and directory
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: creating_user_and_directory
+
+- name: downloading the catalogue files and archiveing
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: downloading_unarchiving
+
+- name: Installing npm dependencies
+  community.general.npm:
+    name: npm
+    path: /app
+
+- name: copying the cart.service
+  ansible.builtin.copy:
+    src: cart.service
+    dest: /etc/systemd/system/cart.service
+
+
+- name: daemon reload cart
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: cart
+
+- name: enabling the catalogue
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: enabling_starting_service

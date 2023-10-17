@@ -1,0 +1,2 @@
+- name: loading the schema
+  ansible.builtin.shell: mongo --host mongodb.saikiransudhireddy.com < /app/schema/{{component}}.js

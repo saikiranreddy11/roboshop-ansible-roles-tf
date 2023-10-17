@@ -1,0 +1,36 @@
+- name: installing nginx
+  ansible.builtin.yum:
+    name: nginx
+    state: installed
+
+- name: enabling the nginx
+  ansible.builtin.service:
+    name: nginx
+    enabled: yes
+    state: started
+
+- name: Removing the default nginx files
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+#here in the web component creating a user is not required , but the below code creates the user also , that doest make any difference, it just creates the user , we will not use it (comment writtern by me)
+- name: creating user and directory
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: creating_user_and_directory
+
+- name: "downloading the {{component}} files and archiveing"
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: downloading_unarchiving
+
+- name: copying the reverse configuration files
+  ansible.builtin.template:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+  notify:                                                #this will triger the handler
+  - restart_nginx
+
+
+  
+
