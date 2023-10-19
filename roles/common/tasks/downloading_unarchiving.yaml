@@ -7,13 +7,13 @@
 
 - name: "Download the {{component}} files from nexus"
   ansible.builtin.get_url:
-    url: "{{ nexus_url }}/{{ component }}/{{ group_id }}/{{ component }}/{{ version}}/{{ component }}-{{ version }}.zip"
-    dest: "/app/{{ component}}-{{ version }}.zip"
-    username: "{{ nexus_username }}"
-    password: "{{ nexus_password }}"
+    url: "{{nexus_url}}/{{component}}/{{group_id}}/{{component}}/{{version}}/{{component}}-{{version}}.zip"
+    dest: "/app/{{component}}-{{version}}.zip"
+    username: "{{nexus_username}}"
+    password: "{{nexus_password}}"
 
 - name: Unarchive a file that is already on the remote machine
   ansible.builtin.unarchive:
-    src: "/app/{{ component}}-{{ version }}.zip"
+    src: "/app/{{component}}-{{version}}.zip"
     dest: "/app"
     remote_src: yes
