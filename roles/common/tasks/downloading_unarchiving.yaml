@@ -8,7 +8,7 @@
 - name: "Download the {{component}} files from nexus"
   ansible.builtin.get_url:
     url: "{{nexus_url}}/{{component}}/{{group_id}}/{{component}}/{{version}}/{{component}}-{{version}}.zip"
-    dest: "/app"
+    dest: "/app/{{component}}-{{version}}.zip"
     username: "{{nexus_username}}"
     password: "{{nexus_password}}"
 
