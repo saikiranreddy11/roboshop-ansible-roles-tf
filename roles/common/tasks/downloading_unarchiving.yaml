@@ -9,8 +9,8 @@
   ansible.builtin.get_url:
     url: "{{ nexus_url }}/{{ component }}/{{ group_id }}/{{ component }}/{{ version}}/{{ component }}-{{ version }}.zip"
     dest: "/app/{{ component}}-{{ version }}.zip"
-    url_username: "{{ nexus_username }}"
-    url_password: "{{ nexus_password }}"
+    username: "{{ nexus_username }}"
+    password: "{{ nexus_password }}"
 
 - name: Unarchive a file that is already on the remote machine
   ansible.builtin.unarchive:
