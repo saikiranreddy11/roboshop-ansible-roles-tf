@@ -1,1 +1,1 @@
-version : "{{ package_version }}"
+version : "{{ APP_VERSION }}"
