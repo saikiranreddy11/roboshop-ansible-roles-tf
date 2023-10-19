@@ -1,10 +1,19 @@
-- name: "Download the {{component}} files"
-  ansible.builtin.get_url:
-    url: "https://roboshop-builds.s3.amazonaws.com/{{component}}.zip"
-    dest: /tmp
+# - name: "Download the {{component}} files"
+#   ansible.builtin.get_url:
+#     url: "https://roboshop-builds.s3.amazonaws.com/{{component}}.zip"
+#     dest: /tmp
   
+
+
+- name: "Download the {{component}} files from nexus"
+  ansible.builtin.get_url:
+    url: "{{ nexus_url }}/{{ component }}/{{ group_id }}/{{ component }}/{{ version}}/{{ component }}-{{ version }}.zip"
+    dest: /app/{{ component}}-{{ version }}.zip
+    url_username: {{username}}
+    url_password: {{password}}
+
 - name: Unarchive a file that is already on the remote machine
   ansible.builtin.unarchive:
-    src: /tmp/{{component}}.zip
+    src: /app/{{component}}.zip
     dest: /app
     remote_src: yes
