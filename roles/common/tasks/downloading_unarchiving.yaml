@@ -14,6 +14,6 @@
 
 - name: Unarchive a file that is already on the remote machine
   ansible.builtin.unarchive:
-    src: /app/{{component}}.zip
+    src: /app/{{ component}}-{{ version }}.zip
     dest: /app
     remote_src: yes
