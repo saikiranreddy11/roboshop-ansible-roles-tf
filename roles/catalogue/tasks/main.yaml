@@ -3,6 +3,10 @@
     name: common
     tasks_from: installing_nodejs
 
+- name: printing the version
+  ansible.builtin.debug:
+    msg: "version from ansble is {{ version }}"
+
 - name: creating user and directory
   ansible.builtin.import_role:
     name: common
@@ -41,7 +45,7 @@
     tasks_from: mongoclient
 
 
-- name: loading the schema
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: loadschema
+# - name: loading the schema
+#   ansible.builtin.import_role:
+#     name: common
+#     tasks_from: loadschema
