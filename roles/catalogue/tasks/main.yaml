@@ -22,8 +22,13 @@
     name: npm
     path: /app
 
-- name: copying the catalogue.service
-  ansible.builtin.copy:
+# - name: copying the catalogue.service
+#   ansible.builtin.copy:
+#     src: catalogue.service
+#     dest: /etc/systemd/system/catalogue.service
+
+- name: templating the catalogue.service   #If we have the variables in the config file, we have to put that config file in the templates folder in ansible roles , so that it can fetch the values dynamically
+  ansible.builtin.template:
     src: catalogue.service
     dest: /etc/systemd/system/catalogue.service
 

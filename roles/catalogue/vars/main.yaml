@@ -3,3 +3,4 @@ nexus_url: http://10.40.30.177:8081/repository
 group_id: "com/saikiransudhireddy"
 nexus_username: admin
 nexus_password: saikiran11
+env: dev
